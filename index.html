@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reaction Time Study</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css"> 
+</head>
+
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
+    <div class="container mx-auto bg-white shadow-lg rounded-lg overflow-hidden grid md:grid-cols-2 max-w-4xl">
+        <!-- Participant Information Form -->
+        <div class="p-6 bg-gray-50 md:w-full">
+            <h2 class="text-2xl font-bold mb-4 text-center text-gray-800">Reaction Time Study</h2>
+            <form id="participant-form" class="space-y-4 h-full">
+                <div>
+                    <label for="age" class="block text-sm font-medium text-gray-700">Age (years)</label>
+                    <input type="number" id="age" name="age" required
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Gender</label>
+                    <div class="mt-1 space-y-2">
+                        <div class="flex items-center">
+                            <input id="male" name="gender" type="radio" value="male" required
+                                class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300">
+                            <label for="male" class="ml-2 block text-sm text-gray-900">Male</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input id="female" name="gender" type="radio" value="female" required
+                                class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300">
+                            <label for="female" class="ml-2 block text-sm text-gray-900">Female</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Are you a gamer?</label>
+                    <div class="mt-1 space-y-2">
+                        <div class="flex items-center">
+                            <input id="gamer-yes" name="gamer" type="radio" value="yes" required
+                                class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300">
+                            <label for="gamer-yes" class="ml-2 block text-sm text-gray-900">Yes</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input id="gamer-no" name="gamer" type="radio" value="no" required
+                                class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300">
+                            <label for="gamer-no" class="ml-2 block text-sm text-gray-900">No</label>
+                        </div>
+                    </div>
+                </div>
+                <p id="study-text1" class="text-xs text-gray-400 text-center">
+                    This study aims to assess how quickly individuals respond to visual stimuli, providing insights into
+                    neural processing, attention, and potential factors influencing response times.
+                </p>
+
+                <button type="submit"
+                    class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                    Start Reaction Test
+                </button>
+            </form>
+        </div>
+
+        <!-- Game Area -->
+        <div class="p-6 md:w-full flex flex-col items-center justify-center">
+            <h3 class="text-xl font-semibold mb-4 text-gray-800">Reaction Time Game</h3>
+            <div id="game-container" class="w-full max-w-sm">
+                <div id="game-grid" class="game-grid">
+                    <!-- 9 game squares will be dynamically created -->
+                    <div class="game-square" data-index="0"></div>
+                    <div class="game-square" data-index="1"></div>
+                    <div class="game-square" data-index="2"></div>
+                    <div class="game-square" data-index="3"></div>
+                    <div class="game-square" data-index="4"></div>
+                    <div class="game-square" data-index="5"></div>
+                    <div class="game-square" data-index="6"></div>
+                    <div class="game-square" data-index="7"></div>
+                    <div class="game-square" data-index="8"></div>
+                </div>
+                <div id="game-status" class="mt-4 text-center text-sm text-gray-600"></div>
+            </div>
+        </div>
+        <p id="study-text2" class="text-xs text-gray-500 text-center">
+            This study aims to assess how quickly individuals respond to visual stimuli, providing insights into neural
+            processing, attention, and potential factors influencing response times.
+        </p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

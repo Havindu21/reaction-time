@@ -1,0 +1,46 @@
+.game-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.game-square {
+    aspect-ratio: 1/1;
+    background-color: #e0e0e0;
+    transition: background-color 0.1s ease;
+    border-radius: 5px;
+}
+
+.game-square.active {
+    background-color: #4CAF50;
+    cursor: pointer;
+}
+
+#study-text1 {
+    margin-top: 40px;
+}
+
+#study-text2 {
+    display: none;
+}
+
+#game-status{
+    height: 25px;
+}
+
+@media (max-width: 768px) {
+    #study-text1 {
+        display: none;
+    }
+
+    #study-text2 {
+        display: block;
+        padding: 15px;
+    }
+}
+
+@media (width: 768px) {
+    #study-text2 {
+        display: none;
+    }
+}
