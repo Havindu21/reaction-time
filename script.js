@@ -122,11 +122,14 @@ class ReactionTimeGame {
         const gender = document.querySelector('input[name="gender"]:checked').value;
         const gamer = document.querySelector('input[name="gamer"]:checked').value;
 
+        const isPc = this.detectDevice();
+
         const participantData = {
             isGamer: gamer === 'yes', // Convert to boolean
             age: parseInt(age, 10),
             reactionTime: averageReactionTime.toFixed(2),
             gender: gender,
+            isPc: isPc,
         };
 
         try {
@@ -156,6 +159,19 @@ class ReactionTimeGame {
             this.gameStatus.innerHTML = `Game Complete! <br> Average Reaction Time: ${averageReactionTime.toFixed(2)} ms.`;
         }
     }
+
+    detectDevice() {
+        const userAgent = navigator.userAgent.toLowerCase();
+        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        const isMobileOrTablet = /mobi|android|ipad|iphone/.test(userAgent);
+
+        // Assume it's a PC if it's not a mobile/tablet and doesn't primarily rely on touch
+        const isLaptopOrDesktop = !isMobileOrTablet && !isTouchDevice;
+
+        return isLaptopOrDesktop;
+    }
+
+
 }
 
 // Initialize the game when the page loads
