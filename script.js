@@ -1,4 +1,4 @@
-const reactionCount = 10; // Use const for a global constant
+const REACTION_COUNT = 10;
 
 class ReactionTimeGame {
     constructor() {
@@ -101,7 +101,7 @@ class ReactionTimeGame {
         clickedSquare.classList.remove('active');
 
         // Check if game is complete
-        if (this.attempts >= reactionCount) {
+        if (this.attempts >= REACTION_COUNT) {
             this.finishGame();
             return;
         }
@@ -113,19 +113,48 @@ class ReactionTimeGame {
         setTimeout(() => this.startNextRound(), 500);
     }
 
-    finishGame() {
+    async finishGame() {
         // Calculate average reaction time
         const averageReactionTime = this.reactionTimes.reduce((a, b) => a + b, 0) / this.reactionTimes.length;
 
-        // Prepare form data
-        const formData = new FormData(this.participantForm);
-        formData.append('average_reaction_time', averageReactionTime);
+        // Prepare participant data
+        const age = document.getElementById('age').value;
+        const gender = document.querySelector('input[name="gender"]:checked').value;
+        const gamer = document.querySelector('input[name="gamer"]:checked').value;
 
-        // Log participant data
-        console.log('Participant Data:', Object.fromEntries(formData));
+        const participantData = {
+            isGamer: gamer === 'yes', // Convert to boolean
+            age: parseInt(age, 10),
+            reactionTime: averageReactionTime.toFixed(2),
+            gender: gender,
+        };
 
-        // Display final game status
-        this.gameStatus.innerHTML = `Game Complete! <br> Average Reaction Time: ${averageReactionTime.toFixed(2)} ms`;
+        try {
+            // Send data to the backend
+            const response = await fetch('https://rextiondatagathback.azurewebsites.net/reaction-data', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(participantData),
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+                console.log('Data saved successfully:', result);
+
+                // Display final game status
+                this.gameStatus.innerHTML = `Game Complete! <br> Average Reaction Time: ${averageReactionTime.toFixed(2)} ms.`;
+            } else {
+                const errorData = await response.json();
+                console.error('Error saving data:', errorData);
+
+                this.gameStatus.innerHTML = `Game Complete! <br> Average Reaction Time: ${averageReactionTime.toFixed(2)} ms.`;
+            }
+        } catch (error) {
+            console.error('Network error:', error);
+            this.gameStatus.innerHTML = `Game Complete! <br> Average Reaction Time: ${averageReactionTime.toFixed(2)} ms.`;
+        }
     }
 }
 
